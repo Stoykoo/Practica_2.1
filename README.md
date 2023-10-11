@@ -9,15 +9,15 @@ Código que utilice en la práctica:
 MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 """
 
-from machine import Pin, I2C
-from ssd1306 import SSD1306_I2C
-import framebuf, sys
-import utime
+	from machine import Pin, I2C
+	from ssd1306 import SSD1306_I2C
+	import framebuf, sys
+	import utime
 
-pix_res_x = 128
-pix_res_y = 64
+	pix_res_x = 128
+	pix_res_y = 64
 
-def init_i2c(scl_pin, sda_pin):
+	def init_i2c(scl_pin, sda_pin):
     # Initialize I2C device
     i2c_dev = I2C(1, scl=Pin(scl_pin), sda=Pin(sda_pin), freq=400000)
     i2c_addr = [hex(ii) for ii in i2c_dev.scan()]
@@ -31,7 +31,7 @@ def init_i2c(scl_pin, sda_pin):
     
     return i2c_dev
 
-def display_logo(oled):
+	def display_logo(oled):
     # Display the Raspberry Pi logo on the OLED
     plain_bytes = [
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc7, 0xfc, 0x7f, 0xff, 0xff, 
@@ -75,13 +75,13 @@ def display_logo(oled):
 
 
 
-def main():
+	def main():
     i2c_dev = init_i2c(scl_pin=27, sda_pin=26)
     oled = SSD1306_I2C(pix_res_x, pix_res_y, i2c_dev)
     display_logo(oled)
 
 
-if __name__ == '__main__':
+	if __name__ == '__main__':
     main()
 
 
@@ -95,26 +95,26 @@ if __name__ == '__main__':
 Código que utilice en la práctica: 
 
 
-"""
-MARTINEZ GARCIA GABRIEL STOYKO - 20211808
-"""
-from machine import Pin, I2C
-from ssd1306 import SSD1306_I2C
-import utime
-import ntptime
+	"""
+	MARTINEZ GARCIA GABRIEL STOYKO - 20211808
+	"""
+	from machine import Pin, I2C
+	from ssd1306 import SSD1306_I2C
+	import utime
+	import ntptime
 
-# Configuración de la pantalla OLED y pines I2C
-pix_res_x = 128
-pix_res_y = 64
-scl_pin = 27
-sda_pin = 26
+	Configuración de la pantalla OLED y pines I2C
+	pix_res_x = 128
+	pix_res_y = 64
+	scl_pin = 27
+	sda_pin = 26
 
-def init_i2c(scl_pin, sda_pin):
+	def init_i2c(scl_pin, sda_pin):
     # Inicializa el dispositivo I2C
     i2c_dev = I2C(1, scl=Pin(scl_pin), sda=Pin(sda_pin), freq=400000)
     return i2c_dev
 
-def update_time():
+	def update_time():
     try:
         # Sincroniza la hora con un servidor NTP (usando el servidor predeterminado)
         ntptime.host = 'time.google.com'
@@ -122,13 +122,13 @@ def update_time():
     except OSError as e:
         print("Error al sincronizar la hora desde Internet:", e)
 
-def display_time(oled, time_data):
+	def display_time(oled, time_data):
     oled.fill(0)  # Limpia la pantalla
     oled.text("Hora actual:", 0, 0)
     oled.text("{:02d}:{:02d}:{:02d}".format(time_data[3], time_data[4], time_data[5]), 0, 16)
     oled.show()
 
-def main():
+	def main():
     i2c_dev = init_i2c(scl_pin, sda_pin)
     oled = SSD1306_I2C(pix_res_x, pix_res_y, i2c_dev)
     
@@ -142,7 +142,7 @@ def main():
         # Espera 1 segundo antes de actualizar la hora nuevamente
         utime.sleep(1)
 
-if __name__ == '__main__':
+	if __name__ == '__main__':
     main() 
  
 ![](imagenes/hora.jpg)
