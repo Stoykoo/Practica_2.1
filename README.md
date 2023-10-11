@@ -123,50 +123,52 @@ Código que utilice en la práctica:
 	"""
 	MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 	"""
-	from machine import Pin, I2C
-	from ssd1306 import SSD1306_I2C
-	import utime
-	import ntptime
-	
-	pix_res_x = 128
-	pix_res_y = 64
-	scl_pin = 27
-	sda_pin = 26
+	# Importación de módulos necesarios
+	from machine import Pin, I2C  # Importa los módulos para controlar la placa y la comunicación I2C.
+	from ssd1306 import SSD1306_I2C  # Importa el módulo para controlar la pantalla OLED.
+	import utime  # Importa el módulo para gestionar el tiempo.
+	import ntptime  # Importa el módulo para sincronizar la hora a través de NTP.
+
+	# Configuración de la pantalla OLED y pines I2C
+	pix_res_x = 128  # Resolución en el eje X de la pantalla OLED.
+	pix_res_y = 64   # Resolución en el eje Y de la pantalla OLED.
+	scl_pin = 27      # Pin de reloj (SCL) para la comunicación I2C.
+	sda_pin = 26      # Pin de datos (SDA) para la comunicación I2C.
 
 	def init_i2c(scl_pin, sda_pin):
-    # Inicializa el dispositivo I2C
+    # Inicializa el dispositivo I2C con los pines especificados.
     i2c_dev = I2C(1, scl=Pin(scl_pin), sda=Pin(sda_pin), freq=400000)
-    return i2c_dev
+    return i2c_dev  # Devuelve la instancia I2C inicializada.
 
 	def update_time():
     try:
-        # Sincroniza la hora con un servidor NTP (usando el servidor predeterminado)
+        # Sincroniza la hora con un servidor NTP utilizando el servidor predeterminado (time.google.com).
         ntptime.host = 'time.google.com'
         print("Hora actual actualizada desde Internet:", utime.localtime())
     except OSError as e:
         print("Error al sincronizar la hora desde Internet:", e)
 
 	def display_time(oled, time_data):
-    oled.fill(0)  # Limpia la pantalla
-    oled.text("Hora actual:", 0, 0)
-    oled.text("{:02d}:{:02d}:{:02d}".format(time_data[3], time_data[4], time_data[5]), 0, 16)
-    oled.show()
+    oled.fill(0)  # Limpia la pantalla estableciendo todos los píxeles en negro.
+    oled.text("Hora actual:", 0, 0)  # Muestra un título en la pantalla.
+    oled.text("{:02d}:{:02d}:{:02d}".format(time_data[3], time_data[4], time_data[5]), 0, 16)  # Muestra la hora en formato HH:MM:SS.
+    oled.show()  # Actualiza la pantalla para mostrar el texto.
 
 	def main():
-    i2c_dev = init_i2c(scl_pin, sda_pin)
-    oled = SSD1306_I2C(pix_res_x, pix_res_y, i2c_dev)
+    i2c_dev = init_i2c(scl_pin, sda_pin)  # Inicializa la comunicación I2C.
+    oled = SSD1306_I2C(pix_res_x, pix_res_y, i2c_dev)  # Inicializa la pantalla OLED.
     
     while True:
-        update_time()  # Actualiza la hora desde Internet
-        current_time = utime.localtime()
+        update_time()  # Actualiza la hora desde Internet.
+        current_time = utime.localtime()  # Obtiene la hora actual como una tupla.
         
-        # Muestra la hora en la pantalla OLED
+        # Muestra la hora en la pantalla OLED.
         display_time(oled, current_time)
         
-        # Espera 1 segundo antes de actualizar la hora nuevamente
-        utime.sleep(1)
+        utime.sleep(1)  # Espera 1 segundo antes de actualizar la hora nuevamente.
 
 	if __name__ == '__main__':
-    main() 
+    main()  # Llama a la función principal si este es el script principal.
+
  
 ![](imagenes/hora.jpg)
