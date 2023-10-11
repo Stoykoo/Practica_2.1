@@ -3,7 +3,8 @@
 <div style="text-align: justify;">
 "La práctica 2.1.1, llamada 'Práctica de Inicio en el OLED Display', se trata de aprender los conceptos fundamentales para mostrar contenido en una pantalla OLED. En esta práctica, estoy aprendiendo a mostrar elementos simples en la pantalla, como el logo de ISC (posiblemente una entidad o institución), o cualquier otro texto básico que desee incluir. Mi objetivo principal es familiarizarme con el funcionamiento y las capacidades de un OLED Display, lo cual es esencial para desarrollar proyectos más avanzados que involucren la visualización de información en pantallas. Esta práctica marca el inicio de mi exploración de las posibilidades que ofrece esta tecnología en el contexto de la informática y la electrónica."
 </div>
-Código que utilice en la práctica:
+Código que utilice en la práctica: 
+
 """
 MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 """
