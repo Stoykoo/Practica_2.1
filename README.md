@@ -6,9 +6,9 @@
 
 Código que utilice en la práctica: 
 
-"""
-MARTINEZ GARCIA GABRIEL STOYKO - 20211808
-"""
+	"""
+	MARTINEZ GARCIA GABRIEL STOYKO - 20211808
+	"""
 
 	from machine import Pin, I2C
 	from ssd1306 import SSD1306_I2C
