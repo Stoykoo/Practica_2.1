@@ -102,8 +102,7 @@ Código que utilice en la práctica:
 	from ssd1306 import SSD1306_I2C
 	import utime
 	import ntptime
-
-	Configuración de la pantalla OLED y pines I2C
+	
 	pix_res_x = 128
 	pix_res_y = 64
 	scl_pin = 27
