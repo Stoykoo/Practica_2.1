@@ -90,8 +90,10 @@ if __name__ == '__main__':
 # 2.1.2  Desplegar la hora de Internet en la Pico usando su Wifi integrada para que interrogue un servidor NTP Time Server, en el OLED DIsplay
 <div style="text-align: justify;">
   En la práctica 2.1.2, estoy emocionado por aprender cómo desplegar la hora de Internet en mi Pico utilizando la función WiFi integrada. En este caso, mi objetivo es que mi Pico se comunique con un servidor NTP Time Server para obtener la hora actual y luego mostrarla en el OLED Display. Esta práctica es un paso adelante en la exploración de las capacidades de mi dispositivo, ya que me permitirá acceder a una fuente confiable de tiempo en línea y presentarla de manera efectiva en la pantalla. ¡Vamos a sumergirnos en esta emocionante experiencia tecnológica!
+</div>
 
 Código que utilice en la práctica: 
+
 """
 MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 """
@@ -143,4 +145,3 @@ if __name__ == '__main__':
     main() 
  
 ![](imagenes/hora.jpg)
-</div>
