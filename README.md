@@ -94,6 +94,7 @@ if __name__ == '__main__':
 
 Código que utilice en la práctica: 
 
+
 """
 MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 """
