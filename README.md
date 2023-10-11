@@ -10,17 +10,31 @@ Código que utilice en la práctica:
 	MARTINEZ GARCIA GABRIEL STOYKO - 20211808
 	"""
 
-	from machine import Pin, I2C
-	from ssd1306 import SSD1306_I2C
-	import framebuf, sys
-	import utime
+	# Importar las bibliotecas necesarias
+	from machine import Pin, I2C  # Importar las clases Pin e I2C desde la biblioteca machine.
+	from ssd1306 import SSD1306_I2C  # Importar la clase SSD1306_I2C desde la biblioteca ssd1306.
+	import framebuf, sys  # Importar la clase framebuf y el módulo sys.
+	import utime  # Importar el módulo utime.
 
-	pix_res_x = 128
-	pix_res_y = 64
+	# Definir la resolución de la pantalla OLED
+	pix_res_x = 128  # Definir la resolución horizontal en píxeles (128 píxeles).
+	pix_res_y = 64   # Definir la resolución vertical en píxeles (64 píxeles).
 
 	def init_i2c(scl_pin, sda_pin):
-    # Initialize I2C device
+    """
+    Inicializa un dispositivo I2C y escanea las direcciones disponibles.
+
+    Args:
+        scl_pin (int): Pin para el reloj SCL del bus I2C.
+        sda_pin (int): Pin para la línea de datos SDA del bus I2C.
+
+    Returns:
+        I2C: Objeto I2C configurado.
+    """
+    # Inicializar un objeto I2C en el bus I2C 1 con los pines SCL y SDA especificados.
     i2c_dev = I2C(1, scl=Pin(scl_pin), sda=Pin(sda_pin), freq=400000)
+    
+    # Escanear las direcciones I2C disponibles y almacenarlas en i2c_addr.
     i2c_addr = [hex(ii) for ii in i2c_dev.scan()]
     
     if not i2c_addr:
@@ -33,7 +47,13 @@ Código que utilice en la práctica:
     return i2c_dev
 
 	def display_logo(oled):
-    # Display the Raspberry Pi logo on the OLED
+    """
+    Muestra el logotipo de Raspberry Pi en la pantalla OLED.
+
+    Args:
+        oled: Objeto SSD1306_I2C que representa la pantalla OLED.
+    """
+    # Definir la representación de bytes (plain_bytes) del logotipo de Raspberry Pi.
     plain_bytes = [
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc7, 0xfc, 0x7f, 0xff, 0xff, 
 	0xff, 0xff, 0xfe, 0x07, 0xf8, 0x1f, 0xff, 0xff, 0xff, 0xff, 0xfe, 0x07, 0xf8, 0x1f, 0xff, 0xff, 
@@ -68,22 +88,26 @@ Código que utilice en la práctica:
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
     ]
+    
+    # Crear un objeto FrameBuffer a partir de la lista de bytes.
     fb = framebuf.FrameBuffer(bytearray(plain_bytes), 64, 64, framebuf.MONO_HLSB)
     
+    # Rellenar la pantalla OLED con píxeles apagados (valor 0), colocar el logotipo en la posición (40, 0) y mostrarlo.
     oled.fill(0)
     oled.blit(fb, 40, 0)
     oled.show()
 
-
-
 	def main():
+    # Inicializar la conexión I2C y la pantalla OLED
     i2c_dev = init_i2c(scl_pin=27, sda_pin=26)
     oled = SSD1306_I2C(pix_res_x, pix_res_y, i2c_dev)
+    
+    # Mostrar el logotipo en la pantalla OLED
     display_logo(oled)
-
 
 	if __name__ == '__main__':
     main()
+
 
 
 ![](imagenes/1.jpg)
